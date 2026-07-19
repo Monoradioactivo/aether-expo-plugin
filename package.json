@@ -30,6 +30,7 @@
   "author": "Adrian Moreno",
   "license": "MIT",
   "peerDependencies": {
+    "@aetherpush/react-native-code-push": ">=1.2.1",
     "expo": ">=53.0.0"
   },
   "devDependencies": {
