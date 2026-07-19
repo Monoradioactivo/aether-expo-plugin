@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-import { modifyMainApplication, setCodePushStrings } from '../android';
+import { modifyAppBuildGradle, modifyMainApplication, setCodePushStrings } from '../android';
 
 const fixture = (name: string) => readFileSync(join(__dirname, 'fixtures', name), 'utf8');
 const props = { iosDeploymentKey: 'ios-key', androidDeploymentKey: 'android-key' };
@@ -20,6 +20,15 @@ describe('setCodePushStrings', () => {
     expect(result.resources.string).toContainEqual({
       $: { name: 'CodePushServerUrl', moduleConfig: 'true' },
       _: 'https://staging.example.com',
+    });
+  });
+
+  it('writes the public key when provided', () => {
+    const pem = '-----BEGIN PUBLIC KEY-----\nabc\n-----END PUBLIC KEY-----';
+    const result = setCodePushStrings({ resources: {} }, { ...props, publicKey: pem });
+    expect(result.resources.string).toContainEqual({
+      $: { name: 'CodePushPublicKey', moduleConfig: 'true' },
+      _: pem,
     });
   });
 
@@ -86,6 +95,27 @@ describe('modifyMainApplication on factory template MainApplication-sdk57.kt', (
       'context = applicationContext,\n      jsBundleFilePath = "custom",'
     );
     expect(() => modifyMainApplication(conflicting)).toThrow(/already passes jsBundleFilePath/);
+  });
+});
+
+describe('modifyAppBuildGradle', () => {
+  const source = fixture('app-build.gradle-sdk57');
+
+  it('appends the codepush.gradle apply line', () => {
+    const result = modifyAppBuildGradle(source);
+    expect(result.endsWith(
+      '\napply from: "../../node_modules/@aetherpush/react-native-code-push/android/codepush.gradle"\n'
+    )).toBe(true);
+  });
+
+  it('keeps the original contents intact', () => {
+    const result = modifyAppBuildGradle(source);
+    expect(result.startsWith(source)).toBe(true);
+  });
+
+  it('is idempotent', () => {
+    const once = modifyAppBuildGradle(source);
+    expect(modifyAppBuildGradle(once)).toBe(once);
   });
 });
 

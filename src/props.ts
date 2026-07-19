@@ -13,7 +13,7 @@ export function validateProps(props: unknown): AetherCodePushPluginProps {
       'serverPathMode is not native configuration and cannot be set by this plugin. Set it in JavaScript instead: codePush({ serverPathMode: "aether" | "codepush-legacy" }). The default is "aether".'
     );
   }
-  const { iosDeploymentKey, androidDeploymentKey, serverUrl } = candidate;
+  const { iosDeploymentKey, androidDeploymentKey, serverUrl, publicKey } = candidate;
   if (typeof iosDeploymentKey !== 'string' || iosDeploymentKey.trim() === '') {
     throw new AetherPluginError('iosDeploymentKey must be a non-empty string.');
   }
@@ -23,5 +23,8 @@ export function validateProps(props: unknown): AetherCodePushPluginProps {
   if (serverUrl !== undefined && (typeof serverUrl !== 'string' || serverUrl.trim() === '')) {
     throw new AetherPluginError('serverUrl must be a non-empty string when provided.');
   }
-  return { iosDeploymentKey, androidDeploymentKey, serverUrl };
+  if (publicKey !== undefined && (typeof publicKey !== 'string' || !publicKey.includes('BEGIN PUBLIC KEY'))) {
+    throw new AetherPluginError('publicKey must be a PEM public key string when provided.');
+  }
+  return { iosDeploymentKey, androidDeploymentKey, serverUrl, publicKey };
 }

@@ -5,6 +5,7 @@ import type { AetherCodePushPluginProps } from './types';
 
 const DEPLOYMENT_KEY_PLIST_KEY = 'CodePushDeploymentKey';
 const SERVER_URL_PLIST_KEY = 'CodePushServerURL';
+const PUBLIC_KEY_PLIST_KEY = 'CodePushPublicKey';
 
 const IMPORT_ANCHOR = 'import React\n';
 const CODEPUSH_IMPORT = 'import CodePush';
@@ -18,6 +19,9 @@ export function setCodePushInfoPlist(
   const next: InfoPlist = { ...infoPlist, [DEPLOYMENT_KEY_PLIST_KEY]: props.iosDeploymentKey };
   if (props.serverUrl !== undefined) {
     next[SERVER_URL_PLIST_KEY] = props.serverUrl;
+  }
+  if (props.publicKey !== undefined) {
+    next[PUBLIC_KEY_PLIST_KEY] = props.publicKey;
   }
   return next;
 }

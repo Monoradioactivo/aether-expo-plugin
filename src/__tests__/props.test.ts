@@ -28,6 +28,15 @@ describe('validateProps', () => {
     expect(() => validateProps({ ...valid, serverUrl: ' ' })).toThrow(/serverUrl/);
   });
 
+  it('accepts a PEM public key', () => {
+    const pem = '-----BEGIN PUBLIC KEY-----\nabc\n-----END PUBLIC KEY-----';
+    expect(validateProps({ ...valid, publicKey: pem }).publicKey).toBe(pem);
+  });
+
+  it('rejects a public key that is not PEM', () => {
+    expect(() => validateProps({ ...valid, publicKey: 'abc' })).toThrow(/publicKey/);
+  });
+
   it('rejects serverPathMode with a pointer to the JS option', () => {
     expect(() => validateProps({ ...valid, serverPathMode: 'aether' })).toThrow(/codePush\(\{ serverPathMode/);
   });
