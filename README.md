@@ -4,6 +4,7 @@ Expo config plugin for [@aetherpush/react-native-code-push](https://www.npmjs.co
 
 ## Requirements
 
+- `@aetherpush/react-native-code-push` 1.2.1 or newer. Older versions send a broken header through the strict fetch that Expo ships, so update checks fail.
 - Expo SDK 53 or newer. The native SDK itself supports React Native 0.76 and newer, but this plugin needs the Swift AppDelegate template that Expo introduced in SDK 53. On older projects, follow the manual setup in the [@aetherpush/react-native-code-push](https://www.npmjs.com/package/@aetherpush/react-native-code-push) README instead.
 - A development build or a prebuild workflow. The plugin changes native files, so it does not work in Expo Go.
 - expo-updates must not be active. Aether and expo-updates both want to control which JS bundle the app loads, and they cannot do that at the same time. Uninstall expo-updates, or set `updates.enabled` to `false` in your app config. Prebuild fails with a clear error if an active expo-updates install is found.
