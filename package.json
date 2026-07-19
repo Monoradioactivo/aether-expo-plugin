@@ -1,0 +1,46 @@
+{
+  "name": "@aetherpush/expo-code-push-plugin",
+  "version": "0.1.0",
+  "description": "Expo config plugin that wires @aetherpush/react-native-code-push into an Expo app at prebuild time",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build",
+    "app.plugin.js"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "jest",
+    "prepack": "npm run build"
+  },
+  "keywords": [
+    "expo",
+    "config-plugin",
+    "code-push",
+    "codepush",
+    "ota",
+    "aetherpush",
+    "react-native"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Monoradioactivo/aether-expo-plugin.git"
+  },
+  "author": "Adrian Moreno",
+  "license": "MIT",
+  "peerDependencies": {
+    "expo": ">=53.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.0",
+    "expo": "~57.0.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.6.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
