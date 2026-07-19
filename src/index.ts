@@ -1,13 +1,14 @@
 import {
   type ConfigPlugin,
   createRunOncePlugin,
+  withAppBuildGradle,
   withAppDelegate,
   withInfoPlist,
   withMainApplication,
   withStringsXml,
 } from 'expo/config-plugins';
 
-import { modifyMainApplication, setCodePushStrings } from './android';
+import { modifyAppBuildGradle, modifyMainApplication, setCodePushStrings } from './android';
 import { AetherPluginError } from './errors';
 import { modifyAppDelegate, setCodePushInfoPlist } from './ios';
 import { assertExpoUpdatesInactive } from './expoUpdates';
@@ -37,6 +38,16 @@ const withAetherCodePush: ConfigPlugin<AetherCodePushPluginProps> = (config, raw
 
   config = withStringsXml(config, (c) => {
     c.modResults = setCodePushStrings(c.modResults, props);
+    return c;
+  });
+
+  config = withAppBuildGradle(config, (c) => {
+    if (c.modResults.language !== 'groovy') {
+      throw new AetherPluginError(
+        `Expected a Groovy app/build.gradle but found ${c.modResults.language}. Apply codepush.gradle from @aetherpush/react-native-code-push manually.`
+      );
+    }
+    c.modResults.contents = modifyAppBuildGradle(c.modResults.contents);
     return c;
   });
 

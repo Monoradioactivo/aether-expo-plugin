@@ -8,6 +8,7 @@ type ResourceItemXML = AndroidConfig.Resources.ResourceItemXML;
 
 const DEPLOYMENT_KEY_RESOURCE = 'CodePushDeploymentKey';
 const SERVER_URL_RESOURCE = 'CodePushServerUrl';
+const PUBLIC_KEY_RESOURCE = 'CodePushPublicKey';
 
 const CODEPUSH_IMPORT = 'import com.microsoft.codepush.react.CodePush';
 const IMPORT_ANCHOR = 'import com.facebook.react.PackageList\n';
@@ -32,6 +33,9 @@ export function setCodePushStrings(
   const items = [moduleConfigString(DEPLOYMENT_KEY_RESOURCE, props.androidDeploymentKey)];
   if (props.serverUrl !== undefined) {
     items.push(moduleConfigString(SERVER_URL_RESOURCE, props.serverUrl));
+  }
+  if (props.publicKey !== undefined) {
+    items.push(moduleConfigString(PUBLIC_KEY_RESOURCE, props.publicKey));
   }
   return AndroidConfig.Strings.setStringItem(items, resources);
 }
@@ -58,6 +62,17 @@ export function modifyMainApplication(contents: string): string {
   throw new AetherPluginError(
     'Unrecognized MainApplication.kt shape: found neither ExpoReactHostFactory.getDefaultReactHost nor DefaultReactNativeHost. This plugin supports Expo SDK 53 and newer; wire CodePush.getJSBundleFile() manually.'
   );
+}
+
+const CODEPUSH_GRADLE_APPLY =
+  'apply from: "../../node_modules/@aetherpush/react-native-code-push/android/codepush.gradle"';
+
+export function modifyAppBuildGradle(contents: string): string {
+  if (contents.includes('codepush.gradle')) {
+    return contents;
+  }
+  const separator = contents.endsWith('\n') ? '' : '\n';
+  return `${contents}${separator}\n${CODEPUSH_GRADLE_APPLY}\n`;
 }
 
 function injectFactory(contents: string): string {

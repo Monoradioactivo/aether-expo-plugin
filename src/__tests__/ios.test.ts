@@ -22,6 +22,12 @@ describe('setCodePushInfoPlist', () => {
     const result = setCodePushInfoPlist({ CFBundleName: 'App' }, props);
     expect(result.CFBundleName).toBe('App');
   });
+
+  it('writes the public key when provided', () => {
+    const pem = '-----BEGIN PUBLIC KEY-----\nabc\n-----END PUBLIC KEY-----';
+    const result = setCodePushInfoPlist({}, { ...props, publicKey: pem });
+    expect(result.CodePushPublicKey).toBe(pem);
+  });
 });
 
 describe.each(['AppDelegate-sdk53.swift', 'AppDelegate-sdk57.swift'])(
