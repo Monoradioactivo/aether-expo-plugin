@@ -43,6 +43,8 @@ npx expo run:ios
 npx expo run:android
 ```
 
+To ship an over-the-air update to a built app, follow [docs/RELEASING.md](./docs/RELEASING.md).
+
 ## Props
 
 | Prop | Type | Required | Description |
