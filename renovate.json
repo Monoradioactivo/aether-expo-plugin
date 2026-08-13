@@ -34,5 +34,9 @@
       "groupName": "github actions (non-major)"
     }
   ],
-  "minimumReleaseAge": "3 days"
+  "minimumReleaseAge": "3 days",
+  "timezone": "America/Mexico_City",
+  "schedule": [
+    "before 6am on monday"
+  ]
 }
