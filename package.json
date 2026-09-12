@@ -1,6 +1,6 @@
 {
   "name": "@aetherpush/expo-code-push-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Expo config plugin that wires @aetherpush/react-native-code-push into an Expo app at prebuild time",
   "main": "build/index.js",
   "types": "build/index.d.ts",

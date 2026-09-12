@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/Monoradioactivo/aether-expo-plugin/compare/v1.0.0...v1.0.1) (2026-09-12)
+
+
+### Bug Fixes
+
+* **ci:** count Brief-Verified across Co-authored-by trailers ([#20](https://github.com/Monoradioactivo/aether-expo-plugin/issues/20)) ([6633216](https://github.com/Monoradioactivo/aether-expo-plugin/commit/6633216dfb1612d5eb789a2af3107006ea3d15dc))
+
 ## 1.0.0 (2026-07-19)
 
 
