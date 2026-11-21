@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/Monoradioactivo/aether-expo-plugin/compare/v1.0.1...v1.0.2) (2026-11-21)
+
+
+### Bug Fixes
+
+* **plugin:** reject equal iOS and Android deployment keys ([#57](https://github.com/Monoradioactivo/aether-expo-plugin/issues/57)) ([2806b65](https://github.com/Monoradioactivo/aether-expo-plugin/commit/2806b652e05bd65b97db842b3f2b539d70b46a0c))
+
 ## [1.0.1](https://github.com/Monoradioactivo/aether-expo-plugin/compare/v1.0.0...v1.0.1) (2026-09-12)
 
 
