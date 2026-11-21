@@ -20,6 +20,11 @@ export function validateProps(props: unknown): AetherCodePushPluginProps {
   if (typeof androidDeploymentKey !== 'string' || androidDeploymentKey.trim() === '') {
     throw new AetherPluginError('androidDeploymentKey must be a non-empty string.');
   }
+  if (iosDeploymentKey.trim() === androidDeploymentKey.trim()) {
+    throw new AetherPluginError(
+      'iosDeploymentKey and androidDeploymentKey must differ. Create a separate Aether app (and deployment key) for each platform; one key shared across platforms can serve the wrong bundle and brick the binary.'
+    );
+  }
   if (serverUrl !== undefined && (typeof serverUrl !== 'string' || serverUrl.trim() === '')) {
     throw new AetherPluginError('serverUrl must be a non-empty string when provided.');
   }

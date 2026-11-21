@@ -49,8 +49,8 @@ To ship an over-the-air update to a built app, follow [docs/RELEASING.md](./docs
 
 | Prop | Type | Required | Description |
 | --- | --- | --- | --- |
-| `iosDeploymentKey` | `string` | yes | Deployment key for the iOS app. |
-| `androidDeploymentKey` | `string` | yes | Deployment key for the Android app. |
+| `iosDeploymentKey` | `string` | yes | Deployment key for the iOS app. Must differ from `androidDeploymentKey` (one Aether app per platform). |
+| `androidDeploymentKey` | `string` | yes | Deployment key for the Android app. Must differ from `iosDeploymentKey` (one Aether app per platform). |
 | `serverUrl` | `string` | no | Aether server URL. When omitted, the SDK uses `https://api.aetherpush.com/`. |
 | `publicKey` | `string` | no | PEM public key for code signing. When set, the SDK only installs updates whose bundle carries a valid signature, so release with the matching `--privateKeyPath`. |
 
