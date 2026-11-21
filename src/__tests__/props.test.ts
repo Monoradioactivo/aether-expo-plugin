@@ -24,6 +24,22 @@ describe('validateProps', () => {
     expect(() => validateProps({ iosDeploymentKey: 'ios-key' })).toThrow(/androidDeploymentKey/);
   });
 
+  it('rejects equal iOS and Android deployment keys', () => {
+    expect(() =>
+      validateProps({ iosDeploymentKey: 'same-key', androidDeploymentKey: 'same-key' })
+    ).toThrow(/must differ.*separate Aether app/);
+  });
+
+  it('rejects keys that match only after trim', () => {
+    expect(() =>
+      validateProps({ iosDeploymentKey: '  same-key  ', androidDeploymentKey: 'same-key' })
+    ).toThrow(/must differ/);
+  });
+
+  it('accepts unequal iOS and Android deployment keys', () => {
+    expect(validateProps(valid)).toEqual({ ...valid, serverUrl: undefined });
+  });
+
   it('rejects an empty server URL', () => {
     expect(() => validateProps({ ...valid, serverUrl: ' ' })).toThrow(/serverUrl/);
   });
